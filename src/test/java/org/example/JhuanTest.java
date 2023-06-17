@@ -40,7 +40,7 @@ public class JhuanTest {
         driver.get("https://www.uni-stuttgart.de/studium/studienangebot/?abschluss=all&fachrichtung=all");
 
         List<WebElement> links = driver.findElements(By.cssSelector(".studienkurzinfo a"));
-        int linkCount = Math.min(links.size(), 1);
+        int linkCount = Math.min(links.size(), 10);
 
         for (int i = 0; i < linkCount; i++) {
             WebElement link = links.get(i);
@@ -132,6 +132,6 @@ public class JhuanTest {
             }
         }
 
-        assertTrue(tippyDisplayed, "O Tippy Tooltip está aparecendo ao passar o mouse sobre o botão.");
+        assertTrue(tippyDisplayed, "O Tippy Tooltip não está aparecendo ao passar o mouse sobre o botão.");
     }
 }
