@@ -12,10 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
 
-public class TestForm {
-
-
-    //objeto que cont�m os m�todos que controlam o navegador web
+public class GilsonTest {
     private static WebDriver driver;
     private WebElement element;
 
@@ -70,6 +67,7 @@ public class TestForm {
         WebElement submitButton = driver.findElement(By.xpath("//input[@type='submit' and @value='Submit']"));
 
         emailInput.sendKeys("teste errado");
+        // usado para deixar o processo mais claro para o visualizador
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -92,6 +90,7 @@ public class TestForm {
             System.out.println("O span de erro NÃO está sendo exibido corretamente.");
         }
 
+        // usado para deixar o processo mais claro para o visualizador
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -101,7 +100,7 @@ public class TestForm {
     }
 
     @Test
-    public void testeImageSliderNextChange() {
+    public void testImageSliderNextChange() {
         driver.get("https://www.uni-stuttgart.de/en/");
         String title = driver.getTitle();
 
@@ -116,6 +115,7 @@ public class TestForm {
 
         buttonNext.click();
 
+        // usado para deixar o processo mais claro para o visualizador
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -132,6 +132,44 @@ public class TestForm {
         } else {
             System.out.println("A imagem não mudou.");
         }
+    }
+
+    @Test
+    public void testSocialMediaButtons() {
+        driver.get("https://www.uni-stuttgart.de/en/");
+        String title = driver.getTitle();
+
+        Assertions.assertEquals("University of Stuttgart", title);
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
+
+        WebElement facebookButton = driver.findElement(By.cssSelector(".linklist__link.is-facebook"));
+        String hrefFacebook = facebookButton.getAttribute("href");
+        Assertions.assertTrue(hrefFacebook.contains("facebook.com"));
+
+        WebElement instagramButton = driver.findElement(By.cssSelector(".linklist__link.is-instagram"));
+        String hrefInstagram = instagramButton.getAttribute("href");
+        Assertions.assertTrue(hrefInstagram.contains("instagram.com"));
+
+        WebElement twitterButton = driver.findElement(By.cssSelector(".linklist__link.is-twitter"));
+        String hrefTwitter = twitterButton.getAttribute("href");
+        Assertions.assertTrue(hrefTwitter.contains("twitter.com"));
+
+        WebElement mastodonButton = driver.findElement(By.cssSelector(".linklist__link.is-mastodon"));
+        String hrefMastodon = mastodonButton.getAttribute("href");
+        Assertions.assertTrue(hrefMastodon.contains("xn--baw-joa.social"));
+
+        WebElement youtubeButton = driver.findElement(By.cssSelector(".linklist__link.is-youtube"));
+        String hrefYoutube = youtubeButton.getAttribute("href");
+        Assertions.assertTrue(hrefYoutube.contains("youtube.com"));
+
+        WebElement linkedinButton = driver.findElement(By.cssSelector(".linklist__link.is-linkedin"));
+        String hrefLinkedin = linkedinButton.getAttribute("href");
+        Assertions.assertTrue(hrefLinkedin.contains("linkedin.com"));
+
+        WebElement ususButton = driver.findElement(By.cssSelector(".linklist__link.is-usus"));
+        String hrefUsus = ususButton.getAttribute("href");
+        Assertions.assertTrue(hrefUsus.contains("usus.uni-stuttgart"));
     }
 
     @AfterAll
