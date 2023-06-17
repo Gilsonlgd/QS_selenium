@@ -132,6 +132,6 @@ public class JhuanTest {
             }
         }
 
-        assertTrue(tippyDisplayed, "O Tippy Tooltip não está aparecendo ao passar o mouse sobre o botão.");
+        assertTrue(tippyDisplayed, "O Tippy Tooltip está aparecendo ao passar o mouse sobre o botão.");
     }
 }
