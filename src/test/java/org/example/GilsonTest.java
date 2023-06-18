@@ -55,7 +55,7 @@ public class GilsonTest {
     }
 
     @Test
-    public void testInvalidEmail() {
+    public void testInvalidEmailField() {
         driver.get("https://www.uni-stuttgart.de/en/study/contact/");
         String title = driver.getTitle();
 
