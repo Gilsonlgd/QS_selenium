@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.time.Duration;
 
@@ -101,6 +102,30 @@ public class RobertoTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(6000));
 
         Assertions.assertEquals("Universität Stuttgart", driver.getTitle());
+    }
+
+    @Test
+    public void cardColorChangesOnHover() {
+        driver.get("https://www.uni-stuttgart.de/en/");
+
+        Assertions.assertEquals("University of Stuttgart", driver.getTitle());
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(6000));
+
+        WebElement link;
+
+        link = driver.findElement(By.cssSelector(".stream__wrapper > div:first-child > a"));
+        Assertions.assertNotNull(link);
+        final var firstColor = link.getCssValue("background-color");
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(link).perform();
+
+        link = driver.findElement(By.cssSelector(".stream__wrapper > div:first-child > a"));
+        Assertions.assertNotNull(link);
+        final var secondColor = link.getCssValue("background-color");
+
+        Assertions.assertNotEquals(firstColor, secondColor);
     }
 
 }
