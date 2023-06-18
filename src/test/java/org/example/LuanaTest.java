@@ -21,7 +21,7 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class testLuana {
+public class LuanaTest {
     private static WebDriver driver;
     private WebElement element;
 
@@ -97,9 +97,6 @@ public class testLuana {
 
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
 
-        WebElement footerElement = driver.findElement(By.cssSelector(".list-inline-meta li:nth-child(2)"));
-        //String date = footerElement.getText();
-        //assertEquals(date,"2/28/23");
 
         List<WebElement> dateElements = driver.findElements(By.cssSelector(".list-inline-meta li:nth-child(2)"));
 
@@ -107,12 +104,10 @@ public class testLuana {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
 
-        // Extrair e imprimir as datas
         for (WebElement dateElement : dateElements) {
             try {
                 Date date = sdf.parse(dateElement.getText());
                 datasEmDates.add(date);
-                //System.out.println(date);
 
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -124,19 +119,14 @@ public class testLuana {
 
         for (Date dataRecida : datasEmDates) {
             datasOrdenadas.add(dataRecida);
-            //System.out.println(dataRecida);
 
         }
 
-        // Ordene a lista de datas
         Collections.sort(datasOrdenadas);
         Collections.reverse(datasOrdenadas);
 
         Date arrayDatasRecebidas[] = datasEmDates.toArray(new Date[datasEmDates.size()]);
         Date arrayDatasOrdenadas[] = datasOrdenadas.toArray(new Date[datasOrdenadas.size()]);
-        //System.out.println(arrayDatasRecebidas);
-        //System.out.println(arrayDatasOrdenadas);
-
 
         assertArrayEquals(arrayDatasOrdenadas,arrayDatasRecebidas);
 
