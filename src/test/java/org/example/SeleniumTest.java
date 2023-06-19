@@ -1,26 +1,23 @@
 package org.example;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.interactions.Actions;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 
 public class SeleniumTest {
@@ -40,7 +37,7 @@ public class SeleniumTest {
     }
 
     @Test
-    public void testMainNavigation(){
+    public void testMainNavigation() {
         driver.get("https://www.iste.uni-stuttgart.de/");
         WebElement mainNavigationButton = driver.findElement(By.className("lines-button"));
         driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10000));
@@ -63,7 +60,7 @@ public class SeleniumTest {
     }
 
     @Test
-    public void testLocationMap(){
+    public void testLocationMap() {
         driver.get("https://www.iste.uni-stuttgart.de/");
 
         WebElement mainNavigationButton = driver.findElement(By.className("lines-button"));
@@ -102,12 +99,12 @@ public class SeleniumTest {
         WebElement buldingElement = driver.findElement(By.cssSelector("span.map-tooltip#popup-map_2fefae9c"));
         String text = buldingElement.getText();
         String nomePredio = "CS building";
-        Assertions.assertEquals(text,nomePredio);
+        Assertions.assertEquals(text, nomePredio);
 
     }
 
     @Test
-    public void testNewsOrder(){
+    public void testNewsOrder() {
         driver.get("https://www.iste.uni-stuttgart.de/");
 
         WebElement Newselement = driver.findElement(By.cssSelector(".stream-teaser__component-headline"));
@@ -151,7 +148,7 @@ public class SeleniumTest {
         Date arrayDatasRecebidas[] = datasEmDates.toArray(new Date[datasEmDates.size()]);
         Date arrayDatasOrdenadas[] = datasOrdenadas.toArray(new Date[datasOrdenadas.size()]);
 
-        Assertions.assertArrayEquals(arrayDatasOrdenadas,arrayDatasRecebidas);
+        Assertions.assertArrayEquals(arrayDatasOrdenadas, arrayDatasRecebidas);
 
     }
 
@@ -267,9 +264,14 @@ public class SeleniumTest {
         WebElement submitButton = driver.findElement(By.xpath("//input[@type='submit' and @value='Submit']"));
 
         nameInput.clear();
+        // Precisamos adicionar tempo antes de clicar no submit porque o site possui verificação
+        // de tempo mínimo para preenchimento do formulário
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         submitButton.click();
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
 
         WebElement errorSpan = driver.findElement(By.xpath("//span[@class='webform_label_error' and text()='This field is mandatory, please fill in a value.']"));
 
@@ -296,9 +298,9 @@ public class SeleniumTest {
         WebElement submitButton = driver.findElement(By.xpath("//input[@type='submit' and @value='Submit']"));
 
         emailInput.sendKeys("teste errado");
-        // usado para deixar o processo mais claro para o visualizador
+        // Usado para deixar o processo mais claro para o visualizador
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -472,6 +474,7 @@ public class SeleniumTest {
         String classValue = tab.getAttribute("class");
         return classValue.contains("active");
     }
+
     @Test
     public void testTippyTooltip() {
         driver.get("https://www.uni-stuttgart.de/studium/orientierung/try-science/");
